@@ -21,8 +21,8 @@ odsPipeline(
       image: "${dockerRegistry}/cd/jenkins-crafty-slave-python",
       workingDir: '/tmp',
       alwaysPullImage: true,
-      resourceRequestMemory: '1Gi',
-      resourceLimitMemory: '2Gi',
+      resourceRequestMemory: '512M',
+      resourceLimitMemory: '1Gi',
       args: '${computer.jnlpmac} ${computer.name}'
     ),
     containerTemplate(
@@ -30,8 +30,8 @@ odsPipeline(
       image: 'python:3.8-slim',
       alwaysPullImage: true,
       ttyEnabled: true,
-      resourceRequestMemory: '1Gi',
-      resourceLimitMemory: '2Gi',
+      resourceRequestMemory: '512Gi',
+      resourceLimitMemory: '1Gi',
       command: '',
       workingDir: '/tmp'
     )
