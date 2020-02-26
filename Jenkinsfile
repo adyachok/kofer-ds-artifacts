@@ -1,5 +1,5 @@
-def final projectId = 'smart'
-def final componentId = 'data-science-artifacts'
+def final projectId = 'zz'
+def final componentId = 'ds-artifacts'
 def final credentialsId = "${projectId}-cd-cd-user-with-password"
 def sharedLibraryRepository
 def dockerRegistry

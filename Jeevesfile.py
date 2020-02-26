@@ -44,14 +44,6 @@ class CustomJeevesPipeline(JeevesPipeline):
         else:
             upload_url = build_args.get('upload_url_dev')
         model_upload_url = upload_url + '/model/upload'
-        status, payload = self.upload_model(model, build_args, model_upload_url)
-        if status:
-            return
-        model_data = payload.get('model')
-        model_id = model_data.get('id')
-        model_revision = model_data.get('currentModelRevision')
-        self.upload_shap_plots(model, model_id, model_revision,
-                               build_args, upload_url)
 
     @command('Model Description File Verification')
     def verify_model_model_desc_integration(self, model):
@@ -113,46 +105,6 @@ class CustomJeevesPipeline(JeevesPipeline):
                 status = 1
             finally:
                 for fd in files:
-                    fd[1].close()
-        return status, msg
-
-    @command('Upload Shap plots')
-    def upload_shap_plots(self, model_path, model_id, model_revision,
-                          build_args, upload_url):
-        status = 0
-        msg = ''
-        model_path = os.path.join(model_path, 'model')
-        plots_path = os.path.join(model_path, 'plots')
-        if not os.path.exists(plots_path):
-            msg = 'Model has no Shap plots.'
-            print(msg)
-            return status, msg
-        plots = []
-        for plot_filename in os.listdir(plots_path):
-            plot_path = os.path.join(plots_path, plot_filename)
-            plots.append(('modelFiles', open(plot_path, 'rb')))
-        plots_upload_url = upload_url + '/model/shap/upload'
-        with requests.Session() as session:
-            session.cert = (
-               build_args.get('cert'),
-               build_args.get('pem'))
-            try:
-                resp = session.post(plots_upload_url,
-                                    files=plots,
-                                    verify=False,
-                                    data={
-                                        'modelId': model_id,
-                                        'revision': model_revision})
-                if not resp.ok:
-                    print(resp.__dict__)
-                    status = resp.status_code
-                else:
-                    msg = resp.json().get('payload')
-            except Exception as e:
-                msg += f' During plots upload next error occured: {e}'
-                status = 1
-            finally:
-                for fd in plots:
                     fd[1].close()
         return status, msg
 
