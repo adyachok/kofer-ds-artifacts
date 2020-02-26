@@ -1,9 +1,7 @@
 import os
-import json
-import tempfile
-import requests
-import numpy as np
+from pathlib import PurePath
 
+import numpy as np
 import tensorflow as tf
 
 
@@ -19,11 +17,12 @@ model.compile(optimizer='sgd',
 
 history = model.fit(xs, ys, epochs=500, verbose=0)
 
-print("Finished training the model")
+print("Finished training the model!!")
 
-MODEL_DIR = tempfile.gettempdir()
+SCRIPTS_DIR = PurePath(os.path.dirname(__file__))
+MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
 
-version = 1
+version = 8
 
 export_path = os.path.join(MODEL_DIR, str(version))
 
