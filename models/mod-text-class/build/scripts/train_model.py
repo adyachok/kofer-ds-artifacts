@@ -14,7 +14,7 @@ splits, info = tfds.load(name="imdb_reviews",
                          with_info=True, 
                         split=splits, 
                         as_supervised=True, 
-                        data_dir=SCRIPTS_DIR.parents[0])
+                        data_dir=DATA_DIR)
 train_data, validation_data, test_data = splits
 
 num_train_examples = info.splits['train'].num_examples

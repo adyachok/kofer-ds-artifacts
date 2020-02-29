@@ -111,9 +111,6 @@ def stageBuild(def context) {
                         stage('Build a model') {
                             def status = sh(
                               script: """
-                                # TODO: install dependencies into a virtual environment
-                                # TODO: Compile and test a model
-                                # TODO: save model into tensorflow SavedModel format into /tmp/<model name>/<version>/ directory
                                 cd \$MODEL_PATH &&
                                 # . venv/bin/activate &&
                                 . /opt/venv/bin/activate &&
@@ -122,6 +119,9 @@ def stageBuild(def context) {
                               """,
                               returnStatus: true
                             )
+                            if (status != 0) {
+                              error "Model build failed!"
+                            }
                         } // End of Build model
                         stage('Copy built model') {
                           def status = sh(
@@ -132,6 +132,9 @@ def stageBuild(def context) {
                             """,
                             returnStatus: true
                           )
+                          if (status != 0) {
+                            error "Model copy failed!"
+                          }
                         } // End copy build model                        
                     } // End of Container python-env
 
@@ -157,6 +160,9 @@ def stageBuild(def context) {
                           """,
                           returnStatus: true
                         )
+                        if (status != 0) {
+                              error "Model deploy failed!"
+                        }
                     } // End copy build model
                 } // End of withEnv
               } // End of model training loop
