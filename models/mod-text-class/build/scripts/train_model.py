@@ -48,7 +48,7 @@ eval_results = model.evaluate(test_batches, verbose=0)
 for metric, value in zip(model.metrics_names, eval_results):
     print(metric + ': {:.3}'.format(value))
 
-
+# Saving
 SCRIPTS_DIR = PurePath(os.path.dirname(__file__))
 MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
 
