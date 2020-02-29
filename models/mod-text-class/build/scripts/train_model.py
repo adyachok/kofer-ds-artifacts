@@ -55,10 +55,10 @@ eval_results = model.evaluate(test_batches, verbose=0)
 for metric, value in zip(model.metrics_names, eval_results):
     print(metric + ': {:.3}'.format(value))
 
-# Saving
+# Saving.
 MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
 
-# Model version
+# Model version.
 version = 1
 
 export_path = os.path.join(MODEL_DIR, str(version))
