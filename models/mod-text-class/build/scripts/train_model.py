@@ -52,6 +52,7 @@ for metric, value in zip(model.metrics_names, eval_results):
 SCRIPTS_DIR = PurePath(os.path.dirname(__file__))
 MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
 
+# Model version
 version = 1
 
 export_path = os.path.join(MODEL_DIR, str(version))
