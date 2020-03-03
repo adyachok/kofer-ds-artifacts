@@ -47,7 +47,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 history = model.fit(train_batches,
-                    epochs=20,
+                    epochs=9,
                     validation_data=validation_batches)
 
 eval_results = model.evaluate(test_batches, verbose=0)
