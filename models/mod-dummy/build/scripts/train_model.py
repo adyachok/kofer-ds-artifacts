@@ -17,7 +17,7 @@ model.compile(optimizer='sgd',
 
 history = model.fit(xs, ys, epochs=500, verbose=0)
 
-print("Finished training the model!!")
+print("Finished training the model!")
 
 SCRIPTS_DIR = PurePath(os.path.dirname(__file__))
 MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
