@@ -25,7 +25,7 @@ ROOT_DIR_NAME = os.path.basename(ROOT_DIR.resolve())
 MODEL_DIR = Path(ROOT_DIR, 'model')
 # Model should be saved under model/<model-name> path
 MODEL_SAVE_DIR = Path(MODEL_DIR, ROOT_DIR_NAME)
-os.makedirs(MODEL_SAVE_DIR.resolve())
+# os.makedirs(MODEL_SAVE_DIR.resolve())
 
 version = 8
 
