@@ -6,15 +6,15 @@ import tensorflow_hub as hub
 import tensorflow_datasets as tfds
 
 
-SCRIPTS_DIR = PurePath(os.path.dirname(__file__))
-DATA_DIR = PurePath(SCRIPTS_DIR.parents[0], 'data')
+SCRIPTS_DIR = Path(os.path.dirname(__file__))
+DATA_DIR = Path(SCRIPTS_DIR.parents[0], 'data')
 
 splits = ['train[:60%]', 'train[-40%:]', 'test']
 splits, info = tfds.load(name="imdb_reviews", 
                          with_info=True, 
                         split=splits, 
                         as_supervised=True, 
-                        data_dir=DATA_DIR)
+                        data_dir=DATA_DIR.resolve())
 train_data, validation_data, test_data = splits
 
 num_train_examples = info.splits['train'].num_examples
