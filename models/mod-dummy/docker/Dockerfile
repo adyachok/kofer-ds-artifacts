@@ -1,5 +1,5 @@
 FROM tensorflow/serving
 
-COPY * /models/
+COPY mod-dummy/ /models/mod-dummy/
 
 RUN pwd && ls -la && env | sort
