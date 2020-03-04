@@ -1,5 +1,5 @@
 import os
-from pathlib import PurePath
+from pathlib import Path
 
 import tensorflow as tf
 import tensorflow_hub as hub
@@ -47,7 +47,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 history = model.fit(train_batches,
-                    epochs=9,
+                    epochs=5,
                     validation_data=validation_batches)
 
 eval_results = model.evaluate(test_batches, verbose=0)
@@ -55,13 +55,17 @@ eval_results = model.evaluate(test_batches, verbose=0)
 for metric, value in zip(model.metrics_names, eval_results):
     print(metric + ': {:.3}'.format(value))
 
-# Saving
-MODEL_DIR = PurePath(SCRIPTS_DIR.parents[1], 'model')
+# Saving logic
+SCRIPTS_DIR = Path(os.path.dirname(__file__))
+ROOT_DIR = SCRIPTS_DIR.parents[1]
+ROOT_DIR_NAME = os.path.basename(ROOT_DIR.resolve())
+MODEL_DIR = Path(ROOT_DIR, 'model')
+# Model should be saved under model/<model-name> path
+MODEL_SAVE_DIR = Path(MODEL_DIR, ROOT_DIR_NAME)
 
-# Model version
-version = 1
+version = 2
 
-export_path = os.path.join(MODEL_DIR, str(version))
+export_path = os.path.join(MODEL_SAVE_DIR.resolve(), str(version))
 
 model.save(export_path, save_format="tf")
 
