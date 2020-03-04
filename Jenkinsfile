@@ -111,7 +111,9 @@ def stageBuild(def context) {
                         stage('Build a model') {
                             def status = sh(
                               script: """
+                                tree . &&
                                 cd \$MODEL_PATH &&
+                                tree . &&
                                 # . venv/bin/activate &&
                                 . /opt/venv/bin/activate &&
                                 python build/scripts/train_model.py &&

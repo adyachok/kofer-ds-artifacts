@@ -34,6 +34,7 @@ os.mkdir(MODEL_SAVE_DIR)
 
 version = 8
 
+
 export_path = os.path.join(MODEL_SAVE_DIR, str(version))
 model.save(export_path, save_format="tf")
 
