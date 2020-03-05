@@ -26,7 +26,7 @@ MODEL_DIR = Path(ROOT_DIR, 'model')
 # Model should be saved under model/<model-name> path
 MODEL_SAVE_DIR = Path(MODEL_DIR, ROOT_DIR_NAME)
 
-version = 8
+version = 9
 
 
 export_path = os.path.join(MODEL_SAVE_DIR.resolve(), str(version))
