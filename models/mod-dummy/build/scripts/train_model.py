@@ -20,6 +20,6 @@ history = model.fit(xs, ys, epochs=500, verbose=0)
 
 print("Finished training the model!")
 
-version = 9
+version = 10
 
 ModelSaver(os.path.dirname(__file__), model=model, version=version)()

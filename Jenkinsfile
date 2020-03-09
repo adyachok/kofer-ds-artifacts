@@ -113,6 +113,7 @@ def stageBuild(def context) {
                               script: """
                                 tree . &&
                                 cd \$MODEL_PATH &&
+                                export PYTHONPATH=../../utils &&
                                 tree . &&
                                 # . venv/bin/activate &&
                                 . /opt/venv/bin/activate &&
