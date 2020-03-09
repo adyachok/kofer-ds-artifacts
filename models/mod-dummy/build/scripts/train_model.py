@@ -1,8 +1,9 @@
 import os
-from pathlib import Path
 
 import numpy as np
 import tensorflow as tf
+
+from utils.saver import ModelSaver
 
 
 print("\u2022 Using TensorFlow Version:", tf.__version__)
@@ -19,17 +20,6 @@ history = model.fit(xs, ys, epochs=500, verbose=0)
 
 print("Finished training the model!")
 
-SCRIPTS_DIR = Path(os.path.dirname(__file__))
-ROOT_DIR = SCRIPTS_DIR.parents[1]
-ROOT_DIR_NAME = os.path.basename(ROOT_DIR.resolve())
-MODEL_DIR = Path(ROOT_DIR, 'model')
-# Model should be saved under model/<model-name> path
-MODEL_SAVE_DIR = Path(MODEL_DIR, ROOT_DIR_NAME)
-
 version = 9
 
-
-export_path = os.path.join(MODEL_SAVE_DIR.resolve(), str(version))
-model.save(export_path, save_format="tf")
-
-print('\nexport_path = {}'.format(export_path))
+ModelSaver(os.path.dirname(__file__), model=model, version=version)()
