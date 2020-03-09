@@ -109,16 +109,13 @@ def stageBuild(def context) {
                           )
                         } // End of stage PEP-8
                         stage('Build a model') {
-                          String packageRootPath = MODEL_PATH.split("/")[(0..-3)].join("/")
-                          println "Package root path: " + packageRootPath
-                          withEnv(["PACKAGE_ROOT_PATH=${packageRootPath}"]) {
                             def status = sh(
                               script: """
                                 tree . &&
                                 cd \$MODEL_PATH &&
                                 tree . &&
                                 . /opt/venv/bin/activate &&
-                                export PYTHONPATH=\${PACKAGE_ROOT_PATH}/utils &&
+                                export PYTHONPATH=\$(pwd)/utils &&
                                 python build/scripts/train_model.py &&
                                 tree .
                               """,
@@ -127,7 +124,6 @@ def stageBuild(def context) {
                             if (status != 0) {
                               error "Model build failed!"
                             }
-                          } // End of withEnv
                         } // End of Build model
                         stage('Copy built model') {
                           def status = sh(
