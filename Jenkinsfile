@@ -116,7 +116,7 @@ def stageBuild(def context) {
                                 cd \$MODEL_PATH &&
                                 tree . &&
                                 . /opt/venv/bin/activate &&
-                                export PYTHONPATH=\${ROOT}/utils &&
+                                export PYTHONPATH=\${ROOT} &&
                                 python build/scripts/train_model.py &&
                                 tree .
                               """,
