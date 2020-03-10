@@ -29,6 +29,6 @@ history = model.fit(xs,
 
 print("Finished training the model!")
 
-version = 8
+version = 9
 
 ModelSaver(current_folder_path.resolve(), model=model, version=version)()
