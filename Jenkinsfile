@@ -172,7 +172,7 @@ def stageBuild(def context) {
                             script: """
                               TENSORBOARD_POD=\$(oc get po --show-all=false -l 'app=tensorboard' --no-headers=true --output='name')  &&
                               cd \$MODEL_PATH &&
-                              oc scp \$TENSORBOARD_POD logs/* logs/
+                              oc cp \$TENSORBOARD_POD logs/* logs/
                             """,
                             returnStatus: true
                           )
