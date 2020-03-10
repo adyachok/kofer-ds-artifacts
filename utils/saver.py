@@ -10,6 +10,11 @@ import tensorflow as tf
 class ModelSaver():
     """Helper class to build SavedModel from Keras models and attach model
     business description as an info method.
+    Logic is based on:
+      - https://www.tensorflow.org/guide/saved_model
+      - https://www.tensorflow.org/guide/concrete_function
+      - https://www.tensorflow.org/guide/keras/save_and_serialize
+      - https://www.tensorflow.org/tutorials/customization/performance
     """
 
     def __init__(self, calling_script_path, model, version):

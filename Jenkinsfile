@@ -118,7 +118,7 @@ def stageBuild(def context) {
                                 . /opt/venv/bin/activate &&
                                 export PYTHONPATH=\${ROOT} &&
                                 python build/scripts/train_model.py &&
-                                tree .
+                                tree . &&
                               """,
                               returnStatus: true
                             )
@@ -166,17 +166,22 @@ def stageBuild(def context) {
                         if (status != 0) {
                               error "Model deploy failed!"
                         }
-                    } // End copy build model
+                    } // End deploy build model
+                    stage('Copy logs to tensorboard') {
+                          def status = sh(
+                            script: """
+                              TENSORBOARD_POD=$(oc get po --show-all=false -l 'app=tensorboard' --no-headers=true --output='name')  &&
+                              cd \$MODEL_PATH &&
+                              os scp \$TENSORBOARD_POD logs/* logs/
+                            """,
+                            returnStatus: true
+                          )
+                          if (status != 0) {
+                            error "Logs copy failed!"
+                          }
+                    } // End of copy logs to tensorboard
                 } // End of withEnv
               } // End of model training loop
-              
-            sh """
-            # TODO: get model and put it within docker file
-            # cp -r src docker/dist
-            # TODO: check if component already exists (oc get bc)
-            # TODO: trigger build
-                ls -la
-            """
       }
     }
 }
