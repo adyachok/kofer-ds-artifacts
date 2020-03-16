@@ -62,6 +62,6 @@ eval_results = model.evaluate(test_batches, verbose=0)
 for metric, value in zip(model.metrics_names, eval_results):
     print(metric + ': {:.3}'.format(value))
 
-version = 1
+version = 2
 
 ModelSaver(current_folder_path.resolve(), model=model, version=version)()
