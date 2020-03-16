@@ -74,4 +74,4 @@ class ModelSaver():
 
     @tf.function(input_signature=[tf.TensorSpec([], tf.bool)])
     def info(self, x):
-        return json.dumps(self.model_description)
+        return self.model_description

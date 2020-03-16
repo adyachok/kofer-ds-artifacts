@@ -5,6 +5,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import tensorflow_datasets as tfds
 
+from utils.saver import ModelSaver
 
 SCRIPTS_DIR = Path(os.path.dirname(__file__))
 DATA_DIR = Path(SCRIPTS_DIR.parents[0], 'data')
@@ -37,6 +38,11 @@ train_batches = train_data.shuffle(num_train_examples // 4).batch(batch_size).pr
 validation_batches = validation_data.batch(batch_size).prefetch(1)
 test_batches = test_data.batch(batch_size)
 
+current_folder_path = Path(os.path.dirname(__file__))
+logdir = Path(current_folder_path.parents[1], 'logs')
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
+
+
 model = tf.keras.Sequential([
         hub_layer,
         tf.keras.layers.Dense(16, activation='relu'),
@@ -48,25 +54,14 @@ model.compile(optimizer='adam',
 
 history = model.fit(train_batches,
                     epochs=5,
-                    validation_data=validation_batches)
+                    validation_data=validation_batches,
+                    callbacks=[tensorboard_callback])
 
 eval_results = model.evaluate(test_batches, verbose=0)
 
 for metric, value in zip(model.metrics_names, eval_results):
     print(metric + ': {:.3}'.format(value))
 
-# Saving logic
-SCRIPTS_DIR = Path(os.path.dirname(__file__))
-ROOT_DIR = SCRIPTS_DIR.parents[1]
-ROOT_DIR_NAME = os.path.basename(ROOT_DIR.resolve())
-MODEL_DIR = Path(ROOT_DIR, 'model')
-# Model should be saved under model/<model-name> path
-MODEL_SAVE_DIR = Path(MODEL_DIR, ROOT_DIR_NAME)
-
 version = 2
 
-export_path = os.path.join(MODEL_SAVE_DIR.resolve(), str(version))
-
-model.save(export_path, save_format="tf")
-
-print('\nexport_path = {}'.format(export_path))
+ModelSaver(current_folder_path.resolve(), model=model, version=version)()
