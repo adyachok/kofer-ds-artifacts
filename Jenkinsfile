@@ -173,7 +173,7 @@ def stageBuild(def context) {
                               TENSORBOARD_POD=\$(oc get po --show-all=false -l 'app=tensorboard' --no-headers=true --output='name')  &&
                               cd \$MODEL_PATH &&
                               oc rsh \$TENSORBOARD_POD mkdir -p logs/\$MODEL_NAME &&
-                              oc rsync logs/* \$TENSORBOARD_POD:logs/\$MODEL_NAME
+                              oc rsync logs/ \$TENSORBOARD_POD:logs/\$MODEL_NAME/
                             """,
                             returnStatus: true
                           )
