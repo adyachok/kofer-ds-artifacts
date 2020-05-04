@@ -14,7 +14,7 @@ library identifier: 'ods-library@production', retriever: modernSCM(
    credentialsId: credentialsId])
 
 // See readme of shared library for usage and customization.
-odsPipeline(
+odsComponentPipeline(
   podContainers: [
     containerTemplate(
       name: 'jnlp',
