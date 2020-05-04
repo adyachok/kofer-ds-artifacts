@@ -11,11 +11,11 @@ SCRIPTS_DIR = Path(os.path.dirname(__file__))
 DATA_DIR = Path(SCRIPTS_DIR.parents[0], 'data')
 
 splits = ['train[:60%]', 'train[-40%:]', 'test']
-splits, info = tfds.load(name="imdb_reviews", 
-                         with_info=True, 
-                        split=splits, 
-                        as_supervised=True, 
-                        data_dir=DATA_DIR.resolve())
+splits, info = tfds.load(name="imdb_reviews",
+                         with_info=True,
+                         split=splits,
+                         as_supervised=True,
+                         data_dir=DATA_DIR.resolve())
 train_data, validation_data, test_data = splits
 
 num_train_examples = info.splits['train'].num_examples
@@ -31,10 +31,12 @@ print('\u2022 {:,} movie reviews for testing'.format(num_test_examples))
 class_names = ['negative', 'positive']
 
 embedding = "https://tfhub.dev/google/tf2-preview/gnews-swivel-20dim/1"
-hub_layer = hub.KerasLayer(embedding, input_shape=[], dtype=tf.string, trainable=True)
+hub_layer = hub.KerasLayer(embedding, input_shape=[], dtype=tf.string,
+                           trainable=True)
 
 batch_size = 512
-train_batches = train_data.shuffle(num_train_examples // 4).batch(batch_size).prefetch(1)
+train_batches = train_data.shuffle(num_train_examples // 4) \
+    .batch(batch_size).prefetch(1)
 validation_batches = validation_data.batch(batch_size).prefetch(1)
 test_batches = test_data.batch(batch_size)
 

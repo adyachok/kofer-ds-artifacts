@@ -12,3 +12,22 @@ data:
               type: string
               min:
               max:
+              unit:
+              stepsize:
+        target_variable:
+          - name: positive
+            description: Positive class
+            type: int
+            unit:
+            stepsize:
+          - name: negative
+            description: Positive class
+            type: int
+            unit:
+            stepsize:
+        objectives:
+          - target:
+            description:
+            unit:
+            importance:
+            direction:
