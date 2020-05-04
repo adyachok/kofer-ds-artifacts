@@ -1,3 +1,5 @@
+@Library('ods-jenkins-shared-library@production') _
+
 def final projectId = 'zz'
 def final componentId = 'ds-artifacts'
 def final credentialsId = "${projectId}-cd-cd-user-with-password"
