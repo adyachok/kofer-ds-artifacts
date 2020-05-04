@@ -4,25 +4,11 @@ project: Product ABCD
 type: pharma
 data:
     unitSteps:
-      - name: chromatography
+      - name: validation
         params:
           training_ranges:
-            - name: ph
-              description: Process ph concentration
-              type: float
-              unit: g/L
-              min: 6.0
-              max: 9.0
-              stepsize: 0.1
-          target_variable:
-            - name: Elution (g/L)
-              description: Elution (g/L)
-              type: float
-              unit: g/L
-              stepsize: 0.1
-          objectives:
-            - target: Elution (g/L)
-              description: Elution (g/L)
-              unit: g/L
-              importance: high
-              direction: max
+            - name: sentence
+              description: Sentence to get sentiment
+              type: string
+              min:
+              max:
