@@ -7,6 +7,7 @@ import tensorflow_datasets as tfds
 
 from utils.saver import ModelSaver
 
+
 SCRIPTS_DIR = Path(os.path.dirname(__file__))
 DATA_DIR = Path(SCRIPTS_DIR.parents[0], 'data')
 
